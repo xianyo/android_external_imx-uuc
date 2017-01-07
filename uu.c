@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <syscall.h>
+//#include <syscall.h>
 #include <stdint.h>
 #include <fcntl.h>
 #include <sys/stat.h>
@@ -144,7 +144,7 @@ static int utp_mk_devnode(char *class, char *name, char *node, int type)
  *
  * Start the subshell and execute the command passed
  */
-static utp_run(char *command, ... )
+static int utp_run(char *command, ... )
 {
 	int r;
 	char cmd[1024];
@@ -629,11 +629,11 @@ static struct utp_message *utp_handle_command(int u, char *cmd, unsigned long lo
 /*
  * Check the process is dead
  */
-#define NAME_MAX 30
+#define UUC_NAME_MAX 30
 int is_child_dead(void)
 {
 	FILE *fh;
-	char path[NAME_MAX + 1];
+	char path[UUC_NAME_MAX + 1];
 	sprintf(path, "/proc/%u/status", (unsigned int)child_pid);
 	if ((fh = fopen(path, "r"))){
 		char buf[1024];
